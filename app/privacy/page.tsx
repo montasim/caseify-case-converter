@@ -10,6 +10,7 @@ export default function PrivacyPage() {
                 <PageHeader
                     title="Privacy Policy"
                     description="Your privacy is our top priority. Learn how we handle your data."
+                    gradient
                 />
 
                 <InfoGrid cols={2}>

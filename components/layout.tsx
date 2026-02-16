@@ -80,6 +80,8 @@ export function Footer() {
 export function PageLayout({ children }: { children: React.ReactNode }) {
     return (
         <main className="min-h-screen relative overflow-hidden bg-background/50 selection:bg-primary/20 selection:text-primary">
+            {/* Quillink-style grid background */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
             {/* Soft, colorful ambient background - pointer-events-none ensures they don't block clicks */}
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] animate-blob pointer-events-none" />
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-chart-2/5 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none" />
@@ -177,7 +179,7 @@ export function PageSection({
         <section className={cn("space-y-4", className)}>
             <div className="flex items-center gap-3">
                 {Icon && <Icon className="w-5 h-5 text-primary" />}
-                <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+                <h2 className="text-xl font-bold text-foreground">{title}</h2>
             </div>
             <div className="text-muted-foreground leading-relaxed space-y-4">
                 {children}
@@ -221,7 +223,7 @@ export function ContentCard({
     return (
         <Card className={cn("border-none shadow-xl bg-card/50 backdrop-blur-sm ring-1 ring-border/50 overflow-hidden", className)}>
             {gradientBar && <div className="h-2 bg-gradient-to-r from-primary/50 to-primary" />}
-            <CardContent className="p-8 md:p-12 space-y-8">
+            <CardContent className="p-8 space-y-8">
                 {children}
             </CardContent>
         </Card>

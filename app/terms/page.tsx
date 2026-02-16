@@ -10,6 +10,7 @@ export default function TermsPage() {
                 <PageHeader
                     title="Terms of Service"
                     description="Simple and transparent terms for using our platform."
+                    gradient
                 />
 
                 <InfoGrid cols={2}>

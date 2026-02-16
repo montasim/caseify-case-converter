@@ -36,6 +36,7 @@ export default function ContactPage() {
                 <PageHeader
                     title="Get in Touch"
                     description="Have questions or feedback? We'd love to hear from you. Our team is here to help and improve your experience."
+                    gradient
                 />
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
