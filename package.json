@@ -2,6 +2,18 @@
   "name": "convert-case",
   "version": "0.1.0",
   "private": true,
+  "keywords": [
+    "text-converter",
+    "case-converter",
+    "text-transformation",
+    "nextjs",
+    "react",
+    "tailwindcss",
+    "typescript",
+    "text-tool",
+    "case-changer",
+    "string-converter"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
