@@ -193,7 +193,7 @@ export function CaseConverter() {
                     <Button
                         key={label}
                         variant="secondary"
-                        className="rounded-2xl h-14 text-sm font-bold transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] bg-secondary/80 hover:bg-primary hover:text-primary-foreground shadow-sm hover:shadow-primary/30 border border-transparent hover:border-primary/30"
+                        className="rounded-2xl h-14 text-sm font-semibold transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] bg-secondary/80 hover:bg-primary hover:text-primary-foreground shadow-sm hover:shadow-primary/30 border border-transparent hover:border-primary/30"
                         onClick={() => applyConversion(fn)}
                         disabled={!text}
                     >
