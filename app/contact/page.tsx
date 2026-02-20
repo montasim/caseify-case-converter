@@ -1,6 +1,3 @@
-"use client";
-
-import React, { useState } from "react";
 import { PageLayout, PageHeader, ContentCard } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,42 +13,57 @@ import {
     CONTACT_FORM_LABELS,
 } from "@/features/contact/constants/contact-info";
 import type { ContactInfoItem } from "@/features/contact/types/contact.types";
+import {
+  CONTACT_PAGE_SEO,
+  generateOpenGraphMetadata,
+  generateTwitterMetadata,
+  generateAlternatesMetadata,
+} from "@/config/seo";
+
+/**
+ * Contact page metadata
+ * Comprehensive SEO metadata for the contact page
+ */
+export const metadata = {
+  title: CONTACT_PAGE_SEO.title,
+  description: CONTACT_PAGE_SEO.description,
+  keywords: CONTACT_PAGE_SEO.keywords,
+  openGraph: generateOpenGraphMetadata(
+    CONTACT_PAGE_SEO.title,
+    CONTACT_PAGE_SEO.description,
+    CONTACT_PAGE_SEO.canonical,
+    CONTACT_PAGE_SEO.ogImage
+  ),
+  twitter: generateTwitterMetadata(
+    CONTACT_PAGE_SEO.title,
+    CONTACT_PAGE_SEO.description,
+    CONTACT_PAGE_SEO.ogImage
+  ),
+  alternates: generateAlternatesMetadata(CONTACT_PAGE_SEO.canonical),
+};
+
+/**
+ * Form action wrapper for the contact form
+ * Calls sendEmail and returns void to satisfy form action type requirements
+ */
+async function handleContactForm(formData: FormData): Promise<void> {
+    "use server";
+    await sendEmail(formData);
+}
 
 /**
  * Contact page component
- * Displays contact information and a contact form
+ * Displays contact information and a contact form with SEO-optimized content
  */
-export default function ContactPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    const [contactInfoItems, setContactInfoItems] = useState<ContactInfoItem[]>([]);
-
-    // Load contact info items on mount
-    React.useEffect(() => {
-        getContactInfoItems().then(setContactInfoItems);
-    }, []);
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        const formData = new FormData(e.currentTarget);
-        const result = await sendEmail(formData);
-
-        setIsSubmitting(false);
-        if (result.success) {
-            setSubmitted(true);
-        } else {
-            alert(result.error || "Something went wrong. Please try again.");
-        }
-    };
+export default async function ContactPage() {
+    const contactInfoItems = await getContactInfoItems();
 
     return (
         <PageLayout>
             <div className="max-w-5xl mx-auto space-y-12 animate-fade-in-up">
                 <PageHeader
-                    title="Get in Touch"
-                    description="Have questions or feedback? We'd love to hear from you. Our team is here to help and improve your experience."
+                    title="Contact Us"
+                    description="Get in touch with the Convert Case team for support, feedback, or inquiries. We're here to help improve your text conversion experience."
                     gradient
                 />
 
@@ -98,100 +110,71 @@ export default function ContactPage() {
 
                     <div className="lg:col-span-3">
                         <ContentCard className="h-full">
-                            {submitted ? (
-                                <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 animate-in zoom-in duration-500 py-12">
-                                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/10 to-green-600/10 flex items-center justify-center animate-pulse-glow">
-                                        <Send className="w-10 h-10 text-green-500" />
-                                    </div>
+                            <form action={handleContactForm} className="space-y-6 flex-1 flex flex-col justify-center">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <h2 className="text-3xl font-bold gradient-text">Message Sent!</h2>
-                                        <p className="text-muted-foreground max-w-sm">
-                                            Thank you for reaching out. Our team will get back to you as soon as possible.
-                                        </p>
-                                    </div>
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => setSubmitted(false)}
-                                        className="rounded-2xl px-8 h-12 hover:scale-105 transition-transform"
-                                    >
-                                        Send Another Message
-                                    </Button>
-                                </div>
-                            ) : (
-                                <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <Label htmlFor={CONTACT_FORM_FIELDS.NAME} className="text-sm font-semibold uppercase tracking-wider">
-                                                {CONTACT_FORM_LABELS.NAME}
-                                            </Label>
-                                            <Input
-                                                id={CONTACT_FORM_FIELDS.NAME}
-                                                name={CONTACT_FORM_FIELDS.NAME}
-                                                placeholder={CONTACT_FORM_PLACEHOLDERS.NAME}
-                                                required
-                                                className="input-modern rounded-2xl p-5"
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor={CONTACT_FORM_FIELDS.EMAIL} className="text-sm font-semibold uppercase tracking-wider">
-                                                {CONTACT_FORM_LABELS.EMAIL}
-                                            </Label>
-                                            <Input
-                                                id={CONTACT_FORM_FIELDS.EMAIL}
-                                                name={CONTACT_FORM_FIELDS.EMAIL}
-                                                type="email"
-                                                placeholder={CONTACT_FORM_PLACEHOLDERS.EMAIL}
-                                                required
-                                                className="input-modern rounded-2xl p-5"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <Label htmlFor={CONTACT_FORM_FIELDS.SUBJECT} className="text-sm font-semibold uppercase tracking-wider">
-                                            {CONTACT_FORM_LABELS.SUBJECT}
+                                        <Label htmlFor={CONTACT_FORM_FIELDS.NAME} className="text-sm font-semibold uppercase tracking-wider">
+                                            {CONTACT_FORM_LABELS.NAME}
                                         </Label>
                                         <Input
-                                            id={CONTACT_FORM_FIELDS.SUBJECT}
-                                            name={CONTACT_FORM_FIELDS.SUBJECT}
-                                            placeholder={CONTACT_FORM_PLACEHOLDERS.SUBJECT}
+                                            id={CONTACT_FORM_FIELDS.NAME}
+                                            name={CONTACT_FORM_FIELDS.NAME}
+                                            placeholder={CONTACT_FORM_PLACEHOLDERS.NAME}
                                             required
                                             className="input-modern rounded-2xl p-5"
                                         />
                                     </div>
-
-                                    <div className="space-y-2 flex-1">
-                                        <Label htmlFor={CONTACT_FORM_FIELDS.MESSAGE} className="text-sm font-semibold uppercase tracking-wider">
-                                            {CONTACT_FORM_LABELS.MESSAGE}
+                                    <div className="space-y-2">
+                                        <Label htmlFor={CONTACT_FORM_FIELDS.EMAIL} className="text-sm font-semibold uppercase tracking-wider">
+                                            {CONTACT_FORM_LABELS.EMAIL}
                                         </Label>
-                                        <Textarea
-                                            id={CONTACT_FORM_FIELDS.MESSAGE}
-                                            name={CONTACT_FORM_FIELDS.MESSAGE}
-                                            placeholder={CONTACT_FORM_PLACEHOLDERS.MESSAGE}
+                                        <Input
+                                            id={CONTACT_FORM_FIELDS.EMAIL}
+                                            name={CONTACT_FORM_FIELDS.EMAIL}
+                                            type="email"
+                                            placeholder={CONTACT_FORM_PLACEHOLDERS.EMAIL}
                                             required
-                                            className="input-modern rounded-2xl min-h-[150px] p-5 resize-none"
+                                            className="input-modern rounded-2xl p-5"
                                         />
                                     </div>
+                                </div>
 
-                                    <Button
-                                        type="submit"
-                                        className="w-full h-14 text-lg font-bold rounded-2xl shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] btn-gradient"
-                                        disabled={isSubmitting}
-                                    >
-                                        {isSubmitting ? (
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                Sending...
-                                            </div>
-                                        ) : (
-                                            <div className="flex items-center gap-2">
-                                                <Send className="w-5 h-5" />
-                                                Send Message
-                                            </div>
-                                        )}
-                                    </Button>
-                                </form>
-                            )}
+                                <div className="space-y-2">
+                                    <Label htmlFor={CONTACT_FORM_FIELDS.SUBJECT} className="text-sm font-semibold uppercase tracking-wider">
+                                        {CONTACT_FORM_LABELS.SUBJECT}
+                                    </Label>
+                                    <Input
+                                        id={CONTACT_FORM_FIELDS.SUBJECT}
+                                        name={CONTACT_FORM_FIELDS.SUBJECT}
+                                        placeholder={CONTACT_FORM_PLACEHOLDERS.SUBJECT}
+                                        required
+                                        className="input-modern rounded-2xl p-5"
+                                    />
+                                </div>
+
+                                <div className="space-y-2 flex-1">
+                                    <Label htmlFor={CONTACT_FORM_FIELDS.MESSAGE} className="text-sm font-semibold uppercase tracking-wider">
+                                        {CONTACT_FORM_LABELS.MESSAGE}
+                                    </Label>
+                                    <Textarea
+                                        id={CONTACT_FORM_FIELDS.MESSAGE}
+                                        name={CONTACT_FORM_FIELDS.MESSAGE}
+                                        placeholder={CONTACT_FORM_PLACEHOLDERS.MESSAGE}
+                                        required
+                                        className="input-modern rounded-2xl min-h-[150px] p-5 resize-none"
+                                    />
+                                </div>
+
+                                <Button
+                                    type="submit"
+                                    className="w-full h-14 text-lg font-bold rounded-2xl shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] btn-gradient"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <Send className="w-5 h-5" />
+                                        Send Message
+                                    </div>
+                                </Button>
+                            </form>
                         </ContentCard>
                     </div>
                 </div>
