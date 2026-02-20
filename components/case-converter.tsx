@@ -42,13 +42,6 @@ export function CaseConverter() {
 
     return (
         <div className="w-full max-w-5xl mx-auto space-y-10 animate-fade-in-up">
-            <PageHeader
-                title="Smart Case Converter"
-                description="Modern text transformation tools for everyone. Fast, secure, and intuitive."
-                icon={Type}
-                gradient
-            />
-
             <Card className="dark:shadow-primary/10 bg-card/90 backdrop-blur-xl overflow-hidden py-0 group/card">
                 <CardContent className="p-0">
                     <TextArea
@@ -96,26 +89,6 @@ export function CaseConverter() {
                 onConversionSelect={onConversionSelect}
                 disabled={!text}
             />
-
-            <div className="pt-16 pb-12">
-                <InfoGrid>
-                    <InfoCard
-                        title="Fast & Simple"
-                        description="Paste your text and transform it instantly. No waiting, no complex menus."
-                        icon={Zap}
-                    />
-                    <InfoCard
-                        title="Modern Interface"
-                        description="A clean, colorful, and distraction-free environment designed for your focus."
-                        icon={Layout}
-                    />
-                    <InfoCard
-                        title="Secure & Private"
-                        description="Your data never leaves your device. All processing happens locally in your browser."
-                        icon={Shield}
-                    />
-                </InfoGrid>
-            </div>
         </div>
     );
 }

@@ -16,3 +16,5 @@ export { InfoCard } from "@/components/shared/info-card";
 export { InfoGrid } from "@/components/shared/info-grid";
 export { PageSection } from "@/components/shared/page-section";
 export { ContentCard } from "@/components/shared/content-card";
+export { FAQItem } from "@/components/shared/faq-item";
+export { FAQSection } from "@/components/shared/faq-section";

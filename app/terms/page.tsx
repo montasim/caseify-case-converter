@@ -1,4 +1,4 @@
-import { PageLayout, PageHeader, InfoCard, PageSection, InfoGrid, ContentCard } from "@/components/layout";
+import { PageLayout, PageHeader, InfoCard, PageSection, InfoGrid, ContentCard, FAQSection } from "@/components/layout";
 import { Scale, CheckCircle2, FileText, Shield } from "lucide-react";
 import {
   TERMS_PAGE_SEO,
@@ -129,42 +129,12 @@ export default function TermsPage() {
                 </ContentCard>
 
                 {/* FAQ Section with structured data */}
-                <div className="pt-8 pb-12">
-                    <section aria-labelledby="terms-faq-heading">
-                        <h2 id="terms-faq-heading" className="text-3xl font-bold text-center mb-8">
-                            Terms FAQ
-                        </h2>
-                        <div className="max-w-3xl mx-auto space-y-4">
-                            {TERMS_PAGE_FAQS.map((faq, index) => (
-                                <details
-                                    key={index}
-                                    className="group bg-card/50 border border-border/50 rounded-xl overflow-hidden"
-                                >
-                                    <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-muted/50 transition-colors">
-                                        <h3 className="font-semibold pr-4">{faq.question}</h3>
-                                        <span className="text-muted-foreground group-open:rotate-180 transition-transform">
-                                            <svg
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                        </span>
-                                    </summary>
-                                    <p className="px-5 pb-5 text-muted-foreground leading-relaxed">
-                                        {faq.answer}
-                                    </p>
-                                </details>
-                            ))}
-                        </div>
-                    </section>
-                </div>
+                <FAQSection
+                    title="Terms FAQ"
+                    faqs={TERMS_PAGE_FAQS}
+                    headingId="terms-faq-heading"
+                    paddingBottom="small"
+                />
             </div>
         </PageLayout>
     );

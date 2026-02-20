@@ -283,3 +283,34 @@ export interface ActionResult<T = unknown> {
  * Available theme modes
  */
 export type ThemeMode = "light" | "dark" | "system";
+
+// ============================================================================
+// FAQ Types
+// ============================================================================
+
+/**
+ * FAQ item interface
+ */
+export interface FAQItem {
+    question: string;
+    answer: string;
+}
+
+/**
+ * Props for FAQ item component
+ */
+export interface FAQItemProps {
+    question: string;
+    answer: string;
+    index?: number;
+}
+
+/**
+ * Props for FAQ section component
+ */
+export interface FAQSectionProps {
+    title: string;
+    faqs: FAQItem[];
+    headingId?: string;
+    paddingBottom?: 'small' | 'large';
+}

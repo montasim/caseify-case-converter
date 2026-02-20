@@ -1,6 +1,6 @@
 import { CaseConverter } from "@/components/case-converter";
 import { PageLayout } from "@/components/layout";
-import { PageHeader, InfoCard, InfoGrid } from "@/components/layout";
+import { PageHeader, InfoCard, InfoGrid, FAQSection } from "@/components/layout";
 import { Zap, Layout, Shield, CheckCircle, Clock, Globe } from "lucide-react";
 import {
   HOME_PAGE_SEO,
@@ -69,11 +69,12 @@ export default function Home() {
         <CaseConverter />
 
         {/* Features Section with SEO keywords */}
-        <div className="pt-12 pb-8">
+        <div className="pt-24 pb-8">
           <section aria-labelledby="features-heading">
-            <h2 id="features-heading" className="text-3xl font-bold text-center mb-8">
+            <h2 id="features-heading" className="text-3xl font-bold text-center mb-12">
               Why Choose Convert Case?
             </h2>
+            
             <InfoGrid>
               <InfoCard
                 title="Instant Conversion"
@@ -110,47 +111,17 @@ export default function Home() {
         </div>
 
         {/* FAQ Section with structured data */}
-        <div className="pt-8 pb-12">
-          <section aria-labelledby="faq-heading">
-            <h2 id="faq-heading" className="text-3xl font-bold text-center mb-8">
-              Frequently Asked Questions
-            </h2>
-            <div className="max-w-3xl mx-auto space-y-4">
-              {HOME_PAGE_FAQS.map((faq, index) => (
-                <details
-                  key={index}
-                  className="group bg-card/50 border border-border/50 rounded-xl overflow-hidden"
-                >
-                  <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-muted/50 transition-colors">
-                    <h3 className="font-semibold pr-4">{faq.question}</h3>
-                    <span className="text-muted-foreground group-open:rotate-180 transition-transform">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </span>
-                  </summary>
-                  <p className="px-5 pb-5 text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </section>
-        </div>
+        <FAQSection
+          title="Frequently Asked Questions"
+          faqs={HOME_PAGE_FAQS}
+          headingId="faq-heading"
+          paddingBottom="large"
+        />
 
         {/* Available Conversions Section */}
-        <div className="pt-8 pb-12">
+        <div className="pt-8 pb-24">
           <section aria-labelledby="conversions-heading">
-            <h2 id="conversions-heading" className="text-3xl font-bold text-center mb-8">
+            <h2 id="conversions-heading" className="text-3xl font-bold text-center mb-12">
               Available Text Case Conversions
             </h2>
             <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
