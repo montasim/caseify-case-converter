@@ -2,6 +2,7 @@
  * Type definitions for the case converter feature
  */
 
+import * as React from "react";
 import type { ConversionOption, ConversionCategory } from "@/types";
 
 /**
@@ -18,6 +19,8 @@ export interface CaseConversionOption extends ConversionOption {
     category?: ConversionCategory;
     /** Optional description */
     description?: string;
+    /** Optional icon component */
+    icon?: React.ComponentType<{ className?: string }>;
 }
 
 /**

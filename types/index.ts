@@ -314,3 +314,26 @@ export interface FAQSectionProps {
     headingId?: string;
     paddingBottom?: 'small' | 'large';
 }
+
+// ============================================================================
+// Conversion Types
+// ============================================================================
+
+/**
+ * Props for conversion card component
+ */
+export interface ConversionCardProps {
+    title: string;
+    description: string;
+    icon?: React.ComponentType<{ className?: string }>;
+    className?: string;
+}
+
+/**
+ * Props for conversion grid component
+ */
+export interface ConversionGridProps {
+    children: React.ReactNode;
+    cols?: 1 | 2 | 3;
+    className?: string;
+}

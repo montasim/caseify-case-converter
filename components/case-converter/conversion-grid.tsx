@@ -1,55 +1,39 @@
 /**
  * ConversionGrid component
- * Displays a grid of conversion option buttons
+ * Displays conversion options in a grid layout
  */
 
-import * as React from "react";
-import { Button } from "@/components/ui/button";
+import type { CaseConversionOption } from "@/features/case-converter/types/conversion.types";
 import { cn } from "@/lib/utils";
-import type { ConversionOption } from "@/types";
 
-/**
- * ConversionGrid component props
- */
-export interface ConversionGridProps {
-    /** Conversion options to display */
-    options: ConversionOption[];
-    /** Callback when a conversion is selected */
-    onConversionSelect: (conversion: ConversionOption) => void;
-    /** Whether the grid should be disabled */
+interface ConversionGridProps {
+    options: CaseConversionOption[];
+    onConversionSelect: (conversion: CaseConversionOption) => void;
     disabled?: boolean;
-    /** Additional CSS classes */
-    className?: string;
 }
 
 /**
  * ConversionGrid component
- * Displays conversion options in a responsive grid layout
- * 
- * @param props - ConversionGrid component props
+ * Displays conversion options in a grid layout
+ *
+ * @param props - ConversionGridProps component props
  * @returns ConversionGrid component
  */
-export function ConversionGrid({
-    options,
-    onConversionSelect,
-    disabled,
-    className,
-}: ConversionGridProps) {
+export function ConversionGrid({ options, onConversionSelect, disabled = false }: ConversionGridProps) {
     return (
-        <div className={cn(
-            "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4",
-            className
-        )}>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {options.map((option) => (
-                <Button
+                <button
                     key={option.id}
-                    variant="secondary"
-                    className="rounded-2xl h-14 text-sm font-semibold transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] bg-secondary/80 hover:bg-gradient-to-br hover:from-primary hover:to-accent-secondary hover:text-primary-foreground shadow-sm hover:shadow-primary/30 border border-transparent hover:border-primary/30"
                     onClick={() => onConversionSelect(option)}
                     disabled={disabled}
+                    className={cn(
+                        "flex items-center justify-center p-4 rounded-xl border border-border/50 bg-card/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-card/50 disabled:hover:border-border/50",
+                        disabled && "opacity-50 cursor-not-allowed"
+                    )}
                 >
-                    {option.label}
-                </Button>
+                    <span className="text-sm font-medium text-center">{option.label}</span>
+                </button>
             ))}
         </div>
     );

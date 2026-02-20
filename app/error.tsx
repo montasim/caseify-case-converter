@@ -43,7 +43,7 @@ export default function Error({
                     <Button
                         size="lg"
                         onClick={() => reset()}
-                        className="rounded-2xl h-14 px-8 font-bold text-lg shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95 btn-gradient"
+                        className="rounded-2xl px-8 py-4 font-medium shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95 btn-gradient"
                     >
                         <div className="flex items-center gap-2">
                             <RefreshCcw className="w-5 h-5" />
@@ -51,7 +51,7 @@ export default function Error({
                         </div>
                     </Button>
 
-                    <Button variant="outline" size="lg" asChild className="rounded-2xl h-14 px-8 font-bold text-lg transition-all duration-300 hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm hover:scale-105">
+                    <Button variant="outline" size="lg" asChild className="rounded-2xl px-8 py-4 font-medium transition-all duration-300 hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm hover:scale-105">
                         <Link href="/" className="flex items-center gap-2">
                             <Home className="w-5 h-5" />
                             Back to Home
@@ -59,7 +59,7 @@ export default function Error({
                     </Button>
                 </div>
 
-                <div className="pt-8 p-4 bg-muted/30 rounded-2xl border border-border/50 max-w-md w-full glass-card">
+                <div className="p-4 bg-muted/30 rounded-2xl border border-border/50 max-w-md w-full glass-card">
                     <p className="text-xs font-mono text-muted-foreground break-all">
                         Error ID: {error.digest || "unknown_internal_error"}
                     </p>

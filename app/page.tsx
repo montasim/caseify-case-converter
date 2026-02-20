@@ -1,7 +1,9 @@
 import { CaseConverter } from "@/components/case-converter";
 import { PageLayout } from "@/components/layout";
 import { PageHeader, InfoCard, InfoGrid, FAQSection } from "@/components/layout";
-import { Zap, Layout, Shield, CheckCircle, Clock, Globe } from "lucide-react";
+import { ConversionCard } from "@/components/case-converter/conversion-card";
+import { ConversionCardGrid } from "@/components/case-converter/conversion-card-grid";
+import { Zap, Layout, Shield, CheckCircle, Clock, Globe, FileText, Type, RefreshCw } from "lucide-react";
 import {
   HOME_PAGE_SEO,
   generateOpenGraphMetadata,
@@ -124,50 +126,44 @@ export default function Home() {
             <h2 id="conversions-heading" className="text-3xl font-bold text-center mb-12">
               Available Text Case Conversions
             </h2>
-            <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5">
-                <h3 className="font-semibold mb-2">Sentence case</h3>
-                <p className="text-sm text-muted-foreground">
-                  Capitalize the first letter of each sentence. Perfect for paragraphs and articles.
-                </p>
-              </div>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5">
-                <h3 className="font-semibold mb-2">lower case</h3>
-                <p className="text-sm text-muted-foreground">
-                  Convert all text to lowercase. Great for email addresses and URLs.
-                </p>
-              </div>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5">
-                <h3 className="font-semibold mb-2">UPPER CASE</h3>
-                <p className="text-sm text-muted-foreground">
-                  Convert all text to uppercase. Ideal for headings and emphasis.
-                </p>
-              </div>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5">
-                <h3 className="font-semibold mb-2">Capitalized Case</h3>
-                <p className="text-sm text-muted-foreground">
-                  Capitalize the first letter of each word. Perfect for titles and names.
-                </p>
-              </div>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5">
-                <h3 className="font-semibold mb-2">Title Case</h3>
-                <p className="text-sm text-muted-foreground">
-                  Capitalize words except for small articles and prepositions. Best for book and article titles.
-                </p>
-              </div>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5">
-                <h3 className="font-semibold mb-2">aLtErNaTiNg cAsE</h3>
-                <p className="text-sm text-muted-foreground">
-                  Alternate between lowercase and uppercase letters. Fun for social media and creative text.
-                </p>
-              </div>
-              <div className="bg-card/50 border border-border/50 rounded-xl p-5 md:col-span-2">
-                <h3 className="font-semibold mb-2">InVeRsE CaSe</h3>
-                <p className="text-sm text-muted-foreground">
-                  Invert the case of each letter. Great for creating unique text styles and visual effects.
-                </p>
-              </div>
-            </div>
+            <ConversionCardGrid cols={2}>
+              <ConversionCard
+                title="Sentence case"
+                description="Capitalize the first letter of each sentence. Perfect for paragraphs and articles."
+                icon={FileText}
+              />
+              <ConversionCard
+                title="lower case"
+                description="Convert all text to lowercase. Great for email addresses and URLs."
+                icon={Type}
+              />
+              <ConversionCard
+                title="UPPER CASE"
+                description="Convert all text to uppercase. Ideal for headings and emphasis."
+                icon={Type}
+              />
+              <ConversionCard
+                title="Capitalized Case"
+                description="Capitalize the first letter of each word. Perfect for titles and names."
+                icon={Type}
+              />
+              <ConversionCard
+                title="Title Case"
+                description="Capitalize words except for small articles and prepositions. Best for book and article titles."
+                icon={FileText}
+              />
+              <ConversionCard
+                title="aLtErNaTiNg cAsE"
+                description="Alternate between lowercase and uppercase letters. Fun for social media and creative text."
+                icon={Zap}
+              />
+              <ConversionCard
+                title="InVeRsE CaSe"
+                description="Invert the case of each letter. Great for creating unique text styles and visual effects."
+                icon={RefreshCw}
+                className="md:col-span-2"
+              />
+            </ConversionCardGrid>
           </section>
         </div>
       </div>
