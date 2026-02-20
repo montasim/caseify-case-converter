@@ -20,13 +20,13 @@ export default function Error({
 
     return (
         <PageLayout>
-            <div className="max-w-4xl mx-auto min-h-[60vh] flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in slide-in-from-top-10 duration-700">
+            <div className="max-w-4xl mx-auto min-h-[60vh] flex flex-col items-center justify-center text-center space-y-8 animate-fade-in-up">
                 <div className="relative">
                     <h1 className="text-[12rem] md:text-[16rem] font-black leading-none tracking-tighter text-destructive opacity-5 select-none">
                         500
                     </h1>
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-24 h-24 bg-destructive/10 rounded-full flex items-center justify-center">
+                        <div className="w-24 h-24 rounded-full bg-destructive/10 flex items-center justify-center animate-pulse-glow">
                             <AlertTriangle className="w-12 h-12 text-destructive" />
                         </div>
                     </div>
@@ -34,7 +34,7 @@ export default function Error({
 
                 <div className="space-y-4 max-w-lg relative z-10">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Something went wrong</h2>
-                    <p className="text-muted-foreground text-lg">
+                    <p className="text-muted-foreground text-lg leading-relaxed">
                         An unexpected error occurred while converting your request. Don&apos;t worry, your text is likely still safe in your clipboard!
                     </p>
                 </div>
@@ -43,7 +43,7 @@ export default function Error({
                     <Button
                         size="lg"
                         onClick={() => reset()}
-                        className="rounded-xl h-14 px-8 font-bold text-lg shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary"
+                        className="rounded-2xl h-14 px-8 font-bold text-lg shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95 btn-gradient"
                     >
                         <div className="flex items-center gap-2">
                             <RefreshCcw className="w-5 h-5" />
@@ -51,7 +51,7 @@ export default function Error({
                         </div>
                     </Button>
 
-                    <Button variant="outline" size="lg" asChild className="rounded-xl h-14 px-8 font-bold text-lg transition-all hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm">
+                    <Button variant="outline" size="lg" asChild className="rounded-2xl h-14 px-8 font-bold text-lg transition-all duration-300 hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm hover:scale-105">
                         <Link href="/" className="flex items-center gap-2">
                             <Home className="w-5 h-5" />
                             Back to Home
@@ -59,7 +59,7 @@ export default function Error({
                     </Button>
                 </div>
 
-                <div className="pt-8 p-4 bg-muted/30 rounded-2xl border border-border/50 max-w-md w-full">
+                <div className="pt-8 p-4 bg-muted/30 rounded-2xl border border-border/50 max-w-md w-full glass-card">
                     <p className="text-xs font-mono text-muted-foreground break-all">
                         Error ID: {error.digest || "unknown_internal_error"}
                     </p>

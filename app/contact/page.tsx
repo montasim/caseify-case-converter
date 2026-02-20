@@ -32,7 +32,7 @@ export default function ContactPage() {
 
     return (
         <PageLayout>
-            <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <div className="max-w-5xl mx-auto space-y-12 animate-fade-in-up">
                 <PageHeader
                     title="Get in Touch"
                     description="Have questions or feedback? We'd love to hear from you. Our team is here to help and improve your experience."
@@ -44,7 +44,7 @@ export default function ContactPage() {
                         <ContentCard className="h-full">
                             <div className="space-y-6">
                                 <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-accent-secondary/10 flex items-center justify-center shrink-0 animate-subtle-float">
                                         <Mail className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
@@ -54,7 +54,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-accent-secondary/10 flex items-center justify-center shrink-0 animate-subtle-float">
                                         <MessageSquare className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
@@ -64,7 +64,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-accent-secondary/10 flex items-center justify-center shrink-0 animate-subtle-float">
                                         <Globe className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
@@ -76,7 +76,7 @@ export default function ContactPage() {
 
                             <div className="pt-8 border-t border-border/50 mt-auto">
                                 <h4 className="font-semibold mb-4 text-sm text-primary uppercase tracking-wider">Social Channels</h4>
-                                <div className="flex flex-wrap gap-4">
+                                <div className="flex flex-wrap gap-3">
                                     {[
                                         { label: "LinkedIn", href: "https://www.linkedin.com/in/montasim" },
                                         { label: "GitHub", href: "https://github.com/montasim" }
@@ -86,7 +86,7 @@ export default function ContactPage() {
                                             href={social.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-4 py-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-all text-sm font-medium"
+                                            className="px-4 py-2 bg-muted/80 hover:bg-gradient-to-br hover:from-primary hover:to-accent-secondary hover:text-primary-foreground rounded-xl transition-all duration-300 text-sm font-medium hover:scale-105"
                                         >
                                             {social.label}
                                         </a>
@@ -100,11 +100,11 @@ export default function ContactPage() {
                         <ContentCard className="h-full">
                             {submitted ? (
                                 <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 animate-in zoom-in duration-500 py-12">
-                                    <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center">
+                                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/10 to-green-600/10 flex items-center justify-center animate-pulse-glow">
                                         <Send className="w-10 h-10 text-green-500" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-3xl font-bold">Message Sent!</h2>
+                                        <h2 className="text-3xl font-bold gradient-text">Message Sent!</h2>
                                         <p className="text-muted-foreground max-w-sm">
                                             Thank you for reaching out. Our team will get back to you as soon as possible.
                                         </p>
@@ -112,7 +112,7 @@ export default function ContactPage() {
                                     <Button
                                         variant="outline"
                                         onClick={() => setSubmitted(false)}
-                                        className="rounded-xl px-8"
+                                        className="rounded-2xl px-8 h-12 hover:scale-105 transition-transform"
                                     >
                                         Send Another Message
                                     </Button>
@@ -121,39 +121,39 @@ export default function ContactPage() {
                                 <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <Label htmlFor="name">Full Name</Label>
-                                            <Input id="name" name="name" placeholder="Enter your name" required className="rounded-md bg-background/50 p-5" />
+                                            <Label htmlFor="name" className="text-sm font-semibold uppercase tracking-wider">Full Name</Label>
+                                            <Input id="name" name="name" placeholder="Enter your name" required className="input-modern rounded-2xl p-5" />
                                         </div>
                                         <div className="space-y-2">
-                                            <Label htmlFor="email">Email Address</Label>
-                                            <Input id="email" name="email" type="email" placeholder="john@example.com" required className="rounded-md bg-background/50 p-5" />
+                                            <Label htmlFor="email" className="text-sm font-semibold uppercase tracking-wider">Email Address</Label>
+                                            <Input id="email" name="email" type="email" placeholder="john@example.com" required className="input-modern rounded-2xl p-5" />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <Label htmlFor="subject">Subject</Label>
-                                        <Input id="subject" name="subject" placeholder="How can we help?" required className="rounded-md bg-background/50 p-5" />
+                                        <Label htmlFor="subject" className="text-sm font-semibold uppercase tracking-wider">Subject</Label>
+                                        <Input id="subject" name="subject" placeholder="How can we help?" required className="input-modern rounded-2xl p-5" />
                                     </div>
 
                                     <div className="space-y-2 flex-1">
-                                        <Label htmlFor="message">Message</Label>
+                                        <Label htmlFor="message" className="text-sm font-semibold uppercase tracking-wider">Message</Label>
                                         <Textarea
                                             id="message"
                                             name="message"
                                             placeholder="Tell us more about your inquiry..."
                                             required
-                                            className="rounded-xl bg-background/50 min-h-[150px] p-4"
+                                            className="input-modern rounded-2xl min-h-[150px] p-5 resize-none"
                                         />
                                     </div>
 
                                     <Button
                                         type="submit"
-                                        className="w-full h-12 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-[1.01] active:scale-[0.99]"
+                                        className="w-full h-14 text-lg font-bold rounded-2xl shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] btn-gradient"
                                         disabled={isSubmitting}
                                     >
                                         {isSubmitting ? (
                                             <div className="flex items-center gap-2">
-                                                <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                                 Sending...
                                             </div>
                                         ) : (

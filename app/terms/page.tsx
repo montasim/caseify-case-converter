@@ -6,7 +6,7 @@ import { Scale, CheckCircle2, AlertCircle, FileText } from "lucide-react";
 export default function TermsPage() {
     return (
         <PageLayout>
-            <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <div className="max-w-4xl mx-auto space-y-12 animate-fade-in-up">
                 <PageHeader
                     title="Terms of Service"
                     description="Simple and transparent terms for using our platform."

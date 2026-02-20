@@ -51,7 +51,7 @@ function StatBadge({ icon: Icon, label, value }: { icon: LucideIcon, label: stri
     const activeColor = colorMap[label] || "text-primary";
 
     return (
-        <div className="flex items-center gap-2.5 px-4 py-2 bg-background/60 shadow-sm rounded-2xl ring-1 ring-border transition-all hover:ring-primary/40 hover:bg-background/90 hover:scale-105 group/badge">
+        <div className="flex items-center gap-2.5 px-5 py-3 bg-background/70 backdrop-blur-sm shadow-sm rounded-2xl ring-1 ring-border/50 transition-all duration-300 hover:ring-primary/50 hover:bg-background hover:scale-105 group/badge">
             <Icon className={cn("w-4 h-4 transition-colors", activeColor)} />
             <span className="text-sm font-semibold text-muted-foreground transition-colors group-hover/badge:text-foreground">
                 {label}: <span className="text-foreground">{value}</span>
@@ -85,14 +85,14 @@ function IconButton({
                         onClick={onClick}
                         disabled={disabled}
                         className={cn(
-                            "rounded-2xl transition-all duration-300 hover:scale-110 active:scale-90 shadow-sm border-border bg-background",
+                            "w-14 h-14 rounded-2xl transition-all duration-300 hover:scale-110 active:scale-90 shadow-sm border-border bg-background hover:border-primary/50 hover:shadow-lg",
                             className
                         )}
                     >
                         {success ? <Check className="w-5 h-5 animate-in zoom-in text-green-500" /> : <Icon className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />}
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="bg-foreground text-background font-bold border-none">{tooltip}</TooltipContent>
+                <TooltipContent side="top" className="bg-foreground text-background font-bold border-none rounded-xl">{tooltip}</TooltipContent>
             </Tooltip>
         </TooltipProvider>
     );
@@ -133,7 +133,7 @@ export function CaseConverter() {
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-1000">
+        <div className="w-full max-w-5xl mx-auto space-y-10 animate-fade-in-up">
             <PageHeader
                 title="Smart Case Converter"
                 description="Modern text transformation tools for everyone. Fast, secure, and intuitive."
@@ -141,13 +141,13 @@ export function CaseConverter() {
                 gradient
             />
 
-            <Card className="border-none shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-primary/5 bg-card/70 backdrop-blur-xl overflow-hidden ring-1 ring-border py-0 group/card">
+            <Card className="dark:shadow-primary/10 bg-card/90 backdrop-blur-xl overflow-hidden py-0 group/card">
                 <CardContent className="p-0">
                     <div className="relative">
                         <Textarea
                             ref={textareaRef}
                             placeholder="Type or paste your content here..."
-                            className="min-h-[250px] md:min-h-[300px] p-8 md:p-12 text-xl border-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent resize-y transition-all duration-300 placeholder:text-muted-foreground leading-relaxed font-medium"
+                            className="min-h-[250px] md:min-h-[300px] p-8 md:p-12 text-xl border-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent resize-y transition-all duration-300 placeholder:text-muted-foreground/60 leading-relaxed font-medium"
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                         />
@@ -167,21 +167,20 @@ export function CaseConverter() {
                                 onClick={handleCopy}
                                 success={copied}
                                 disabled={!text}
-                                className={cn("w-14 h-14 bg-background border-border shadow-sm hover:border-primary/50", copied && "bg-green-500/10 border-green-500/50 text-green-600 hover:bg-green-500/20")}
+                                className={cn(copied && "bg-green-500/10 border-green-500/50 text-green-600 hover:bg-green-500/20 hover:border-green-500/60")}
                             />
                             <IconButton
                                 icon={Download}
                                 tooltip="Save as TXT"
                                 onClick={handleDownload}
                                 disabled={!text}
-                                className="w-14 h-14 bg-background border-border shadow-sm hover:border-primary/50"
                             />
                             <IconButton
                                 icon={Trash2}
                                 tooltip="Clear content"
                                 onClick={onClear}
                                 disabled={!text}
-                                className="w-14 h-14 bg-background border-border shadow-sm hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30"
+                                className="hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30"
                             />
                         </div>
                     </div>
@@ -193,7 +192,7 @@ export function CaseConverter() {
                     <Button
                         key={label}
                         variant="secondary"
-                        className="rounded-2xl h-14 text-sm font-semibold transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] bg-secondary/80 hover:bg-primary hover:text-primary-foreground shadow-sm hover:shadow-primary/30 border border-transparent hover:border-primary/30"
+                        className="rounded-2xl h-14 text-sm font-semibold transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] bg-secondary/80 hover:bg-gradient-to-br hover:from-primary hover:to-accent-secondary hover:text-primary-foreground shadow-sm hover:shadow-primary/30 border border-transparent hover:border-primary/30"
                         onClick={() => applyConversion(fn)}
                         disabled={!text}
                     >

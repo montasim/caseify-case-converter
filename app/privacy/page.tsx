@@ -6,7 +6,7 @@ import { ShieldCheck, Lock, Eye, FileText } from "lucide-react";
 export default function PrivacyPage() {
     return (
         <PageLayout>
-            <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <div className="max-w-4xl mx-auto space-y-12 animate-fade-in-up">
                 <PageHeader
                     title="Privacy Policy"
                     description="Your privacy is our top priority. Learn how we handle your data."

@@ -12,11 +12,13 @@ export function Logo({ className, iconSize = "w-10 h-10", textSize = "text-2xl",
 }) {
     return (
         <div className={cn("flex items-center gap-2", className)}>
-            <div className={cn("bg-primary rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-primary/20", iconSize)}>
-                <span className="text-primary-foreground font-black leading-none" style={{ fontSize: '1.5rem' }}>C</span>
+            <div className={cn("relative rounded-2xl flex items-center justify-center shrink-0 overflow-hidden", iconSize)}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent-secondary animate-gradient-shift" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+                <span className="relative text-white font-black leading-none" style={{ fontSize: '1.5rem' }}>C</span>
             </div>
             {showText && (
-                <span className={cn("font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70", textSize)}>
+                <span className={cn("font-black tracking-tight leading-none gradient-text", textSize)}>
                     Convert Case
                 </span>
             )}
@@ -28,7 +30,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 
 export function Header() {
     return (
-        <header className="fixed top-0 w-full z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
+        <header className="fixed top-0 w-full z-50 border-b border-border/50 glass-card">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
                 <Link href="/" className="group transition-opacity hover:opacity-90">
                     <Logo />
@@ -40,9 +42,9 @@ export function Header() {
                         href="https://github.com/montasim/caseify-case-converter"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 hover:bg-muted rounded-full transition-colors flex items-center justify-center w-10 h-10"
+                        className="p-2.5 hover:bg-primary/10 rounded-full transition-all duration-300 flex items-center justify-center w-10 h-10 group/icon"
                     >
-                        <Github className="w-5 h-5" />
+                        <Github className="w-5 h-5 text-muted-foreground group-hover/icon:text-primary transition-colors" />
                     </a>
                 </div>
             </div>
@@ -68,8 +70,13 @@ export function Footer() {
                             { href: "/terms", label: "Terms" },
                             { href: "/contact", label: "Contact" }
                         ].map((link) => (
-                            <Link key={link.href} href={link.href} className="hover:text-primary transition-colors">
+                            <Link 
+                                key={link.href} 
+                                href={link.href} 
+                                className="hover:text-primary transition-colors relative group/link"
+                            >
                                 {link.label}
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
                             </Link>
                         ))}
                     </nav>
@@ -82,12 +89,16 @@ export function Footer() {
 export function PageLayout({ children }: { children: React.ReactNode }) {
     return (
         <main className="min-h-screen relative overflow-hidden bg-background/50 selection:bg-primary/20 selection:text-primary">
-            {/* Quillink-style grid background */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
-            {/* Soft, colorful ambient background - pointer-events-none ensures they don't block clicks */}
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] animate-blob pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-chart-2/5 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none" />
-            <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-chart-3/5 rounded-full blur-[120px] animate-blob animation-delay-4000 pointer-events-none" />
+            {/* Isometric grid background */}
+            <div className="absolute inset-0 isometric-grid pointer-events-none" />
+            
+            {/* Mesh gradient background */}
+            <div className="absolute inset-0 mesh-gradient pointer-events-none" />
+            
+            {/* Floating gradient orbs */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px] animate-blob pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-chart-2/10 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none" />
+            <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-chart-3/10 rounded-full blur-[120px] animate-blob animation-delay-4000 pointer-events-none" />
 
             <Header />
             <div className="relative z-10 w-full flex flex-col min-h-screen">
@@ -114,19 +125,19 @@ export function PageHeader({
     className?: string;
 }) {
     return (
-        <div className={cn("flex flex-col items-center text-center space-y-4 mb-8", className)}>
+        <div className={cn("flex flex-col items-center text-center space-y-4 mb-8 animate-fade-in-up", className)}>
             {Icon && (
-                <div className="inline-flex items-center justify-center p-2 bg-primary/10 rounded-2xl mb-2">
+                <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-2xl mb-2 animate-subtle-float">
                     <Icon className="w-6 h-6 text-primary" />
                 </div>
             )}
             <h1 className={cn(
                 "text-3xl md:text-4xl font-bold tracking-tight",
-                gradient && "bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60"
+                gradient && "gradient-text animate-gradient-shift"
             )}>
                 {title}
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl px-4 mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl px-4 mx-auto leading-relaxed">
                 {description}
             </p>
         </div>
@@ -147,14 +158,14 @@ export function InfoCard({
     centered?: boolean;
 }) {
     return (
-        <Card className={cn("border-none shadow-xl bg-card/50 backdrop-blur-sm ring-1 ring-border/50 transition-all hover:scale-[1.02]", className)}>
+        <Card className={cn("glass-card rounded-3xl overflow-hidden", className)}>
             <CardContent className={cn("p-8 space-y-4", centered && "text-center")}>
                 {Icon && (
                     <div className={cn(
-                        "w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4",
+                        "w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-accent-secondary/10 flex items-center justify-center mb-4 animate-subtle-float",
                         centered && "mx-auto"
                     )}>
-                        <Icon className="w-6 h-6 text-primary" />
+                        <Icon className="w-7 h-7 text-primary" />
                     </div>
                 )}
                 <h3 className="text-xl font-semibold">{title}</h3>
@@ -180,10 +191,14 @@ export function PageSection({
     return (
         <section className={cn("space-y-4", className)}>
             <div className="flex items-center gap-3">
-                {Icon && <Icon className="w-5 h-5 text-primary" />}
+                {Icon && (
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-primary" />
+                    </div>
+                )}
                 <h2 className="text-xl font-semibold text-foreground">{title}</h2>
             </div>
-            <div className="text-muted-foreground leading-relaxed space-y-4">
+            <div className="text-muted-foreground leading-relaxed space-y-4 pl-13">
                 {children}
             </div>
         </section>
@@ -223,8 +238,8 @@ export function ContentCard({
     gradientBar?: boolean;
 }) {
     return (
-        <Card className={cn("border-none shadow-xl bg-card/50 backdrop-blur-sm ring-1 ring-border/50 overflow-hidden", className)}>
-            {gradientBar && <div className="h-2 bg-gradient-to-r from-primary/50 to-primary" />}
+        <Card className={cn("glass-card rounded-3xl overflow-hidden", className)}>
+            {gradientBar && <div className="h-2 bg-gradient-to-r from-primary via-accent-secondary to-accent animate-gradient-shift" />}
             <CardContent className="p-8 space-y-8">
                 {children}
             </CardContent>
