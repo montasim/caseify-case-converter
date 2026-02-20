@@ -1,8 +1,19 @@
-"use client";
-
 import { PageLayout, PageHeader, InfoCard, PageSection, InfoGrid, ContentCard } from "@/components/layout";
-import { ShieldCheck, Lock, Eye, FileText } from "lucide-react";
+import { ShieldCheck, Lock, Eye } from "lucide-react";
+import { PAGE_TITLE_SUFFIX } from "@/config/constants";
 
+/**
+ * Privacy page metadata
+ */
+export const metadata = {
+    title: `Privacy Policy${PAGE_TITLE_SUFFIX}`,
+    description: "Your privacy is our top priority. Learn how we handle your data.",
+};
+
+/**
+ * Privacy page component
+ * Displays privacy policy information
+ */
 export default function PrivacyPage() {
     return (
         <PageLayout>

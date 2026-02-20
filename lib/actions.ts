@@ -1,56 +1,85 @@
 "use server";
 
-import { resend } from "@/lib/resend";
-import { getContactEmailHtml, getConfirmationEmailHtml } from "@/lib/email-templates";
+import type { ActionResult, ContactFormData } from "@/types";
+import { getEmailService } from "@/features/email/services/email-service.factory";
+import { ERROR_REQUIRED_FIELDS, ERROR_SERVER } from "@/config/constants";
 
-export async function sendEmail(formData: FormData) {
+/**
+ * Validates contact form data
+ * 
+ * @param formData - Form data from the contact form
+ * @returns Validation result with contact data or error
+ */
+function validateContactForm(formData: FormData): ActionResult<ContactFormData> {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const subject = formData.get("subject") as string;
     const message = formData.get("message") as string;
 
     if (!name || !email || !subject || !message) {
-        return { error: "All fields are required" };
+        return {
+            success: false,
+            error: ERROR_REQUIRED_FIELDS,
+        };
     }
 
-    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
-    const emailFrom = process.env.NEXT_PUBLIC_EMAIL_FROM;
+    return {
+        success: true,
+        data: { name, email, subject, message },
+    };
+}
 
-    if (!contactEmail || !emailFrom) {
-        return { error: "Email configuration is missing" };
+/**
+ * Sends an email via the contact form
+ * Server action that validates form data and sends emails
+ * 
+ * @param formData - Form data from the contact form
+ * @returns Action result indicating success or failure
+ */
+export async function sendEmail(formData: FormData): Promise<ActionResult> {
+    // Validate form data
+    const validationResult = validateContactForm(formData);
+    
+    if (!validationResult.success || !validationResult.data) {
+        return {
+            success: false,
+            error: validationResult.error || ERROR_REQUIRED_FIELDS,
+        };
     }
+
+    const contactData = validationResult.data;
 
     try {
-        // Send email to admin
-        const adminEmail = await resend.emails.send({
-            from: `Convert Case Contact <${emailFrom}>`,
-            to: [contactEmail],
-            replyTo: email,
-            subject: `Contact Form: ${subject}`,
-            html: getContactEmailHtml(name, email, subject, message),
-        });
+        const emailService = getEmailService();
 
-        if (adminEmail.error) {
-            console.error("Resend admin email error:", adminEmail.error);
-            return { error: adminEmail.error.message };
+        // Send email to admin
+        const adminEmailResult = await emailService.sendContactEmail(contactData);
+
+        if (!adminEmailResult.success) {
+            console.error("Failed to send admin email:", adminEmailResult.error);
+            return {
+                success: false,
+                error: adminEmailResult.error || ERROR_SERVER,
+            };
         }
 
-        // Send confirmation email to user
+        // Send confirmation email to user (non-blocking)
         try {
-            await resend.emails.send({
-                from: `Convert Case <${emailFrom}>`,
-                to: [email],
-                subject: "We've received your message!",
-                html: getConfirmationEmailHtml(name),
-            });
+            await emailService.sendConfirmationEmail(contactData.email, contactData.name);
         } catch (confirmErr) {
             // Don't fail the whole action if confirmation email fails
             console.error("Failed to send confirmation email:", confirmErr);
         }
 
-        return { success: true, data: adminEmail.data };
+        return {
+            success: true,
+            data: adminEmailResult.data,
+        };
     } catch (err) {
         console.error("Server error:", err);
-        return { error: "Failed to send email. Please try again later." };
+        return {
+            success: false,
+            error: ERROR_SERVER,
+        };
     }
 }

@@ -1,5 +1,28 @@
-export const getContactEmailHtml = (name: string, email: string, subject: string, message: string) => `
-<!DOCTYPE html>
+/**
+ * Email template generators
+ * Creates HTML templates for contact and confirmation emails
+ */
+
+import { EMAIL_FOOTER_TEMPLATE } from "@/config/constants";
+
+/**
+ * Generates HTML for contact email sent to admin
+ * 
+ * @param name - Sender's name
+ * @param email - Sender's email
+ * @param subject - Email subject
+ * @param message - Email message
+ * @returns HTML string for contact email
+ */
+export function getContactEmailHtml(
+    name: string,
+    email: string,
+    subject: string,
+    message: string
+): string {
+    const year = new Date().getFullYear();
+
+    return `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -79,7 +102,7 @@ export const getContactEmailHtml = (name: string, email: string, subject: string
         <div class="content">
             <div class="field">
                 <div class="field-label">From</div>
-                <div class="field-value">${name} &lt;${email}&gt;</div>
+                <div class="field-value">${name} <${email}></div>
             </div>
             <div class="field">
                 <div class="field-label">Subject</div>
@@ -92,15 +115,23 @@ export const getContactEmailHtml = (name: string, email: string, subject: string
         </div>
         <div class="footer">
             <p>This email was sent from the contact form on convertcase.net</p>
-            <p>&copy; ${new Date().getFullYear()} Convert Case. All rights reserved.</p>
+            <p>${EMAIL_FOOTER_TEMPLATE(year)}</p>
         </div>
     </div>
 </body>
-</html>
-`;
+</html>`;
+}
 
-export const getConfirmationEmailHtml = (name: string) => `
-<!DOCTYPE html>
+/**
+ * Generates HTML for confirmation email sent to user
+ * 
+ * @param name - Recipient's name
+ * @returns HTML string for confirmation email
+ */
+export function getConfirmationEmailHtml(name: string): string {
+    const year = new Date().getFullYear();
+
+    return `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -173,9 +204,9 @@ export const getConfirmationEmailHtml = (name: string) => `
             <a href="https://convertcase.net" class="button">Visit Convert Case</a>
         </div>
         <div class="footer">
-            <p>&copy; ${new Date().getFullYear()} Convert Case. All rights reserved.</p>
+            <p>${EMAIL_FOOTER_TEMPLATE(year)}</p>
         </div>
     </div>
 </body>
-</html>
-`;
+</html>`;
+}

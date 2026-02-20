@@ -1,8 +1,19 @@
-"use client";
-
 import { PageLayout, PageHeader, InfoCard, PageSection, InfoGrid, ContentCard } from "@/components/layout";
-import { Scale, CheckCircle2, AlertCircle, FileText } from "lucide-react";
+import { Scale, CheckCircle2, FileText } from "lucide-react";
+import { PAGE_TITLE_SUFFIX } from "@/config/constants";
 
+/**
+ * Terms page metadata
+ */
+export const metadata = {
+    title: `Terms of Service${PAGE_TITLE_SUFFIX}`,
+    description: "Simple and transparent terms for using our platform.",
+};
+
+/**
+ * Terms page component
+ * Displays terms of service information
+ */
 export default function TermsPage() {
     return (
         <PageLayout>
